@@ -1,0 +1,25 @@
+---
+- name: Install packages using apt
+  apt: name="{{item.0.apackages}}" state=present
+  ignore_errors: yes
+  register: aresults
+  when: 'item.0.acheck == "Y"'
+
+- name: set fact aresults
+  set_fact:
+    failed: true
+  when: 'aresults is failed'
+
+- name: Install packages using pip
+  pip: name="{{item.0.ppackages}}" state=present
+  ignore_errors: yes
+  register: presults
+  when: 'item.0.pcheck == "Y"'
+
+- name: set fact presults
+  set_fact:
+    failed: true
+  when: 'presults is failed'
+...
+
+

@@ -1,0 +1,22 @@
+---
+all:
+  hosts:
+    host1:
+      ansible_connection: ssh
+      ansible_host: IP1
+      ansible_user: user11
+      ansible_password: "password"
+      ansible_become_pass: "password"
+    host2:
+      ansible_connection: ssh
+      ansible_host: IP2
+      ansible_user: user2
+      ansible_password: "password"
+      ansible_become_pass: "password"
+    host3:
+      ansible_connection: ssh
+      ansible_host: IP3
+      ansible_user: user3
+      ansible_password: "password"
+      ansible_become_pass: "password"
+...

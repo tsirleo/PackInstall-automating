@@ -1,0 +1,14 @@
+---
+- name: Delete packages if failed installation using apt
+  apt: name="{{item.0.apackages}}" state=absent
+  delegate_to: "{{item.1}}"
+  when: 'item.0.acheck == "Y"'
+  loop: "{{MY_HOSTS|subelements('name')}}"
+
+- name: Delete packages if failed installation using pip
+  pip: name="{{item.0.ppackages}}" state=absent
+  delegate_to: "{{item.1}}"
+  when: 'item.0.pcheck == "Y"'
+  loop: "{{MY_HOSTS|subelements('name')}}"
+...
+

@@ -1,0 +1,25 @@
+---
+  - name: Working with packages
+    hosts: all
+    become: yes
+
+    vars:
+      failed: false
+
+    tasks:
+      - name: Install packages
+        include: /etc/ansible/install_packages.yaml
+        when: 'ansible_hostname == item.1'
+        loop: "{{MY_HOSTS|subelements('name')}}"
+
+      - name: debug
+        debug: msg="variable = {{failed}}"
+
+      - name: Delete packages if failed
+        include: /etc/ansible/delete_packages.yaml
+        when: 'ansible_hostname == outer_item.1 and failed'
+        loop: "{{MY_HOSTS|subelements('name')}}"
+        loop_control:
+          loop_var: outer_item
+...
+
