@@ -9,8 +9,10 @@
     tasks:
       - name: Install packages
         include: /etc/ansible/install_packages.yaml
-        when: 'ansible_hostname == item.1'
+        when: 'ansible_hostname == outer_item.1'
         loop: "{{MY_HOSTS|subelements('name')}}"
+        loop_control:
+          loop_var: outer_item
 
       - name: debug
         debug: msg="variable = {{failed}}"
@@ -22,4 +24,3 @@
         loop_control:
           loop_var: outer_item
 ...
-
